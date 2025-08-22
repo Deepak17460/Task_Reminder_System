@@ -10,29 +10,61 @@
 </head>
 <body class="bg-gray-100 font-roboto min-h-screen flex">
     <!-- Sidebar -->
-    <div class="w-64 bg-gray-800 text-white flex flex-col p-4 fixed h-full shadow-lg">
-        <h1 class="text-xl font-bold mb-6 border-b border-gray-700 pb-2">Task Reminder</h1>
-        <nav class="space-y-2">
-            <button onclick="filterTasks('all')" class="filter-btn w-full text-left py-2 px-4 rounded hover:bg-gray-700 active:bg-blue-600 active:text-white" data-filter="all">All Tasks</button>
-            <button onclick="filterTasks('pending')" class="filter-btn w-full text-left py-2 px-4 rounded hover:bg-gray-700 active:bg-blue-600 active:text-white" data-filter="pending">Pending</button>
-            <button onclick="filterTasks('completed')" class="filter-btn w-full text-left py-2 px-4 rounded hover:bg-gray-700 active:bg-blue-600 active:text-white" data-filter="completed">Completed</button>
-            <button onclick="filterTasks('high')" class="filter-btn w-full text-left py-2 px-4 rounded hover:bg-gray-700 active:bg-blue-600 active:text-white" data-filter="high">High Priority</button>
+<div id="sidebar" class="w-64 pt-24 bg-gray-800 text-white flex flex-col fixed h-full shadow-lg transition-all duration-300 overflow-hidden">
+        <div class="flex items-center justify-between mb-6 border-b border-gray-700 pb-2 px-4">
+            <h1 class="text-xl font-bold sidebar-text">Task Reminder</h1>
+            <button id="toggle-sidebar" class="text-white hover:text-gray-300 focus:outline-none">
+                <svg id="sidebar-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                </svg>
+            </button>
+        </div>
+        <nav class="space-y-2 px-4">
+            <button onclick="filterTasks('all')" class="filter-btn w-full text-left py-2 px-4 rounded hover:bg-gray-700 active:bg-blue-600 active:text-white flex items-center" data-filter="all">
+                <svg class="w-5 h-5 mr-2 sidebar-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7h18M3 12h18M3 17h18"></path>
+                </svg>
+                <span class="sidebar-text">All Tasks</span>
+            </button>
+            <button onclick="filterTasks('pending')" class="filter-btn w-full text-left py-2 px-4 rounded hover:bg-gray-700 active:bg-blue-600 active:text-white flex items-center" data-filter="pending">
+                <svg class="w-5 h-5 mr-2 sidebar-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3"></path>
+                </svg>
+                <span class="sidebar-text">Pending</span>
+            </button>
+            <button onclick="filterTasks('completed')" class="filter-btn w-full text-left py-2 px-4 rounded hover:bg-gray-700 active:bg-blue-600 active:text-white flex items-center" data-filter="completed">
+                <svg class="w-5 h-5 mr-2 sidebar-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                <span class="sidebar-text">Completed</span>
+            </button>
+            <button onclick="filterTasks('high')" class="filter-btn w-full text-left py-2 px-4 rounded hover:bg-gray-700 active:bg-blue-600 active:text-white flex items-center" data-filter="high">
+                <svg class="w-5 h-5 mr-2 sidebar-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+                </svg>
+                <span class="sidebar-text">High Priority</span>
+            </button>
         </nav>
     </div>
-
     <!-- Main Content -->
-    <div class="ml-64 flex-1 p-6">
+   <div id="main-content" class="ml-64 flex-1 p-6 pt-24">
         <!-- Top Bar -->
-        <div class="bg-white shadow-md p-4 mb-6 rounded-lg flex justify-between items-center">
-            <h2 class="text-xl font-semibold text-gray-800">Task Board</h2>
-            <div class="flex items-center space-x-4">
-                <input type="text" id="search-tasks" placeholder="Search tasks..." class="p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700">
-                <button onclick="toggleAddTask()" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-200">+ Create Task</button>
-            </div>
-        </div>
+<div class="bg-white shadow-md p-4 flex justify-between items-center fixed top-0 left-0 w-full z-50">
+    <h2 class="text-xl font-semibold text-gray-800">Task Board</h2>
+    <div class="flex items-center space-x-4">
+        <input type="text" id="search-tasks" placeholder="Search tasks..." 
+               class="p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700">
+        <button onclick="toggleAddTask()" 
+                class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-200">
+            + Create Task
+        </button>
+    </div>
+</div>
+
+
 
         <!-- Toast Container -->
-        <div id="toast-container" class="fixed top-4 right-4 z-50 space-y-2"></div>
+<div id="toast-container" class="fixed left-1/2 top-4 transform -translate-x-1/2 z-50 space-y-2"></div>
 
         <!-- Add Task Form (Hidden by Default) -->
         <div id="add-task-form" class="hidden bg-white shadow-md rounded-lg p-6 mb-6">

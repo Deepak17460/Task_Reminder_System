@@ -315,14 +315,46 @@ function initKeyboardShortcuts() {
         }
     });
 }
+// Initialize sidebar toggle
+function initSidebarToggle() {
+    const toggleButton = document.getElementById('toggle-sidebar');
+    const sidebarIcon = document.getElementById('sidebar-icon');
+    const sidebar = document.getElementById('sidebar');
+    const mainContent = document.getElementById('main-content');
+    const sidebarTexts = document.querySelectorAll('.sidebar-text');
 
+    if (!toggleButton || !sidebarIcon || !sidebar || !mainContent) {
+        console.error('One or more sidebar toggle elements not found');
+        return;
+    }
+
+    toggleButton.addEventListener('click', () => {
+        console.log('Toggle button clicked');
+        const isCollapsed = sidebar.style.width === '4rem';
+
+        // Toggle sidebar width, background, and main content margin using inline styles
+        sidebar.style.width = isCollapsed ? '14rem' : '4rem';
+        sidebar.style.backgroundColor = isCollapsed ? '#1F2937' : '#1F2937'; // Match bg-gray-800 (#1F2937)
+        mainContent.style.marginLeft = isCollapsed ? '14rem' : '4rem';
+
+        // Toggle text visibility
+        sidebarTexts.forEach(text => {
+            text.classList.toggle('hidden', !isCollapsed);
+        });
+
+        // Toggle icon between hamburger and cross
+       sidebarIcon.innerHTML = isCollapsed
+            ? `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>` // Right arrow (>)
+            : `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 5l-7 7 7 7"/>`
+    });
+}
 // Initialize on DOM load
 document.addEventListener('DOMContentLoaded', () => {
     updateStats();
     initSearch();
     initDragAndDrop();
     initKeyboardShortcuts();
-
+    initSidebarToggle(); // Added sidebar toggle initialization
     document.querySelectorAll('.task-card').forEach((card, index) => {
         card.style.animationDelay = `${index * 50}ms`;
         card.classList.add('fade-in');
