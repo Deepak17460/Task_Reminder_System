@@ -1,0 +1,41 @@
+                                                                         ********************************************Improvment Ideas**************************************
+																		 
+																		 
+																		 
+																		 
+																																			 
+1--> Atlassian Integration with Task Reminder
+2---> ServiceNow Integration with Task Reminder
+
+
+
+Demo-->
+
+
+Jira,
+Conflucen
+ServiceNow
+Team channel
+
+
+Client---A, Agreed.
+
+
+---> Option, Infra, We will mange
+
+-----> Jira,
+Creds,
+---> Jira API,
+---> Jira PAT,
+
+
+Tools,
+
+
+
+---> Application codebase, DockerImage, HelmChart
+----> Doc,
+
+Steps,
+creds
+_--> APplication
